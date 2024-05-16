@@ -3,5 +3,5 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	build: { target: 'chrome71' }
+	build: { target: 'chrome70' }
 });

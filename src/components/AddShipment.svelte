@@ -25,6 +25,6 @@
 </script>
 
 <form on:submit|preventDefault={submitShipment} class="mt-1 flex w-full items-center space-x-2">
-    <Input bind:value={waybill} bind:node={input} type="number" placeholder="Waybill number" pattern="^\d{3}$" autofocus required/>
+    <Input bind:value={waybill} bind:node={input} type="number" placeholder="Waybill number" required/>
     <Button disabled={!waybill} type="submit">Submit</Button>
 </form>

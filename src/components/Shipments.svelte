@@ -10,12 +10,7 @@
     import * as Accordion from "$lib/components/ui/accordion";
     import type { SvelteComponent } from "svelte";
 
-    import {
-        incrementShipment,
-        addShipment as shipmentSave,
-        restoreShipment as shipmentRestore, 
-        deleteShipment as shipmentDelete,
-    } from "../firebase";
+    import * as database from "../firebase";
 
     let dialog: SvelteComponent;
     export let shipmentInput: HTMLElement;
@@ -38,7 +33,7 @@
             const cmp = pieces - count;
             track = cmp < 0 ? "audio/error.wav" : (cmp > 0 ? "audio/submit.wav" : "audio/completed.wav");
             
-            incrementShipment(waybill);
+            database.incrementShipment(waybill);
         } else {
             dialog.show();
         }
@@ -54,7 +49,7 @@
         delete present[waybill];
         
         shipments.set({ present, history });
-        shipmentDelete(waybill);
+        database.deleteShipment(waybill);
     }
 
     function restoreShipment(waybill: number): void {
@@ -64,7 +59,7 @@
         delete history[waybill];
         
         shipments.set({ present, history });
-        shipmentRestore(waybill);
+        database.restoreShipment(waybill);
     }
 
     const sortShipments = ([_, x]: [any, ShipmentType], [__, y]: [any, ShipmentType]): number => {
@@ -79,7 +74,7 @@
             return {present, history};
         });
 
-        shipmentSave(currentWaybill, d);
+        database.addShipment(currentWaybill, d);
     }
 </script>
 
